@@ -9,6 +9,16 @@ map<wstring, wstring> symbolsToJapanese = {
 wregex japaneseMarks(L"[^A-Za-z\\d\\u3005\\u3040-\\u30ff\\u4e00-\\u9fff\\uff11-\\uff19\\uff21-\\uff3a\\uff41-\\uff5a\\uff66-\\uff9d]");
 wregex japaneseCharacters(L"[A-Za-z\\d\\u3005\\u3040-\\u30ff\\u4e00-\\u9fff\\uff11-\\uff19\\uff21-\\uff3a\\uff41-\\uff5a\\uff66-\\uff9d]");
 
+
+wstring CNCleanInputs(wstring text){
+    text = regex_replace(text, wregex(L"."), L"\n");
+    text = regex_replace(text, wregex(L"。"), L"\n");
+    text = regex_replace(text, wregex(L"…"), L"\n");
+    text = regex_replace(text, wregex(L","), L"\n");
+    text = regex_replace(text, wregex(L"，"), L"\n");
+    return text;
+}
+
 wstring CleanInputs(wstring text) {
     text = regex_replace(text, wregex(L"\""), L"");
     text = regex_replace(text, wregex(L"\'"), L"");
@@ -278,4 +288,16 @@ void saveToWav(vector<float> infer, string savePath) {
     } else {
       wcerr << L"无法打开文件" << endl;
     }
+}
+
+
+
+vector<vector<int>> CNConvertSentenceToLabels(wstring text) {
+        vector<vector<int>> outputs;
+        auto sentences = splitSentence(text)
+        for (sentence in sentences) {
+            val labels = wordsToLabels(sentence)
+            outputs.add(labels)
+        }
+        return outputs
 }

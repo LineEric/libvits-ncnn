@@ -13,6 +13,8 @@
 using namespace std;
 
 wstring CleanInputs(wstring text);
+wstring CNCleanInputs(wstring text);
+
 map<wstring, int64_t> GetSymbols();
 vector<wstring> CutLens(const wstring& input);
 vector<wstring> SplitString(wstring text, wchar_t delim);
