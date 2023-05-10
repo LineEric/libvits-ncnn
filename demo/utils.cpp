@@ -54,6 +54,16 @@ vector<wstring> CutLens(const wstring& input) {
     return _Lens;
 }
 
+vector<wstring> CNSplitString(wstring text)
+{
+    vector<wstring> result ;
+    vector<wstring> v = SplitString(text, L'\n');
+    copy_if(v.begin(), v.end(), back_inserter(result), [](wstring words){
+        return !words.empty();
+    });
+    return result;
+}
+
 vector<wstring> SplitString(wstring text, wchar_t delim) {
     wstringstream sstr(text);
     vector<wstring> v;
@@ -225,6 +235,16 @@ vector<int> WordsToLabels(wstring text, int cleanerType) {
     return labels;
 }
 
+
+vector<vector<int>> CNConvertSentenceToLabels(wstring text) {
+        vector<vector<int>> outputs;
+        auto sentences = CNSplitString(text);
+        for (wstring sentence : sentences) {
+            val labels = wordsToLabels(sentence)
+            outputs.add(labels)
+        }
+        return outputs
+}
 vector<vector<int>> ConvertSentenceToLabels(wstring text) {
     // Split sentence
     auto sentences = SplitSentence(text);
@@ -291,13 +311,3 @@ void saveToWav(vector<float> infer, string savePath) {
 }
 
 
-
-vector<vector<int>> CNConvertSentenceToLabels(wstring text) {
-        vector<vector<int>> outputs;
-        auto sentences = splitSentence(text)
-        for (sentence in sentences) {
-            val labels = wordsToLabels(sentence)
-            outputs.add(labels)
-        }
-        return outputs
-}
